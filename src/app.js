@@ -1,7 +1,8 @@
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
-import productRoutes from './routes/products'
+const productRoutes = require('./routes/products')
+require('./database/connection')
 
 const app = express()
 const port = 3000 || process.env.PORT

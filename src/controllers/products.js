@@ -16,14 +16,16 @@ const createProduct = async (req, res) => {
 const getProducts = async (req, res) => {
     try {
 
+
         const filter = {}
 
         const pageOptions = {
-            page: parseInt(res.query.page) || 0,
-            limit: parseInt(res.query.limit) || 10,
+            page: parseInt(req.query.page) || 0,
+            limit: parseInt(req.query.limit) || 10,
         }
 
-        if (res.query.name) Object.assign(filter, { name: { $regex: res.query.name, $options: 'i' } })
+        if (req.query.name) Object.assign(filter, { name: { $regex: req.query.name, $options: 'i' } })
+        if (req.query.category) Object.assign(filter, { category: { $regex: req.query.category, $options: 'i' } })
 
         const totalEntries = await productsSchema.find(filter).count()
         const productsData = await productsSchema
